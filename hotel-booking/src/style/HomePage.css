@@ -1,6 +1,38 @@
 .navbar {
     background-color: #333;
     padding: 1rem;
+    height: 60px;
+  }
+
+  /*navbar customization*/
+  .navbar-dark .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .navbar-dark .nav-link {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.3s;
+  }
+  
+  .navbar-dark .nav-link:hover {
+    color: #fff;
+  }
+  
+  /* Responsive Design Tweaks */
+  @media (max-width: 768px) {
+    .banner {
+      height: 250px;
+    }
+  
+    .banner-text {
+      font-size: 2rem;
+    }
+  
+    .container {
+      padding: 10px;
+    }
   }
   
   .nav-list {
@@ -11,8 +43,6 @@
     padding: 0;
   }
   
-  .nav-item {}
-  
   .nav-link {
     color: white;
     text-decoration: none;
@@ -22,7 +52,7 @@
   /* Banner */
   .banner {
     height: 50vh;
-    background-image: url(https://via.placeholder.com/1500x500); /* Replace with your banner image URL */
+    background-image: url(https://via.placeholder.com/1500x500); /*replace with img url*/
     background-size: cover;
     background-position: center;
     display: flex;
@@ -36,7 +66,7 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   }
   
-  /* Description Section */
+  /* description  */
   .container {
     padding: 2rem;
     text-align: center;
