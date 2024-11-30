@@ -1,15 +1,15 @@
 .navbar {
-    background-color: #343a40 !important; /* Dark background */
-    height: 70px;  /* Set the navbar height */
-    padding-top: 5px; /* Adjust the top padding */
-    padding-bottom: 5px; /* Adjust the bottom padding */
-    display: flex; /* Use flexbox */
-    justify-content: space-between; /* Space out the content */
-    align-items: center; /* Vertically align items */
+    background-color: #343a40 !important; 
+    height: 70px; 
+    padding-top: 5px; 
+    padding-bottom: 5px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
   }
 
   .navbar-collapse {
-
+/* navbar collapse*/ 
   }
   
 
