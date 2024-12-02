@@ -1,60 +1,122 @@
-import React, { useState, useContext } from 'react';
-import { BookingContext } from '../context/BookingContext';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { Tabs, Tab, Container, Row, Col } from 'react-bootstrap';
 import '../style/BookingPage.css';
 
 const BookingPage = () => {
-  const [booking, setBooking] = useState({
-    roomType: '',
-    startDate: '',
-    endDate: '',
-  });
+  const navigate = useNavigate();
 
-  const { addBooking } = useContext(BookingContext);
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
 
-  const handleChange = (e) => {
-    setBooking({ ...booking, [e.target.name]: e.target.value });
-  };
+  const rooms = [
+    {
+      id: 1,
+      name: 'Grand Deluxe King',
+      description: '1 King bed • Sleeps 3 • 75 to 95 sq m',
+      price: 14488, // Price per night
+      image: '/path-to-image-1.jpg',
+    },
+    {
+      id: 2,
+      name: 'Premier Suite',
+      description: '1 King bed • Sleeps 4 • 120 to 150 sq m',
+      price: 25999, // Price per night
+      image: '/path-to-image-2.jpg',
+    },
+    // Add more room details as needed
+  ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addBooking(booking); // Add the booking to the shared state
-    alert('Your booking has been submitted!');
-    setBooking({ roomType: '', startDate: '', endDate: '' }); // Reset the form
+  const handleBookNow = (room) => {
+    if (!checkInDate || !checkOutDate) {
+      alert('Please select check-in and check-out dates.');
+      return;
+    }
+
+    const numOfNights = Math.ceil(
+      (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24)
+    );
+
+    const totalPrice = room.price * numOfNights;
+
+    navigate('/payment', {
+      state: {
+        room,
+        checkInDate,
+        checkOutDate,
+        numOfNights,
+        totalPrice,
+      },
+    });
   };
 
   return (
-    <div className="booking-page">
-      <h2>Book a Room</h2>
-      <form onSubmit={handleSubmit} className="booking-form">
-        <label htmlFor="roomType">Room Type:</label>
-        <select name="roomType" value={booking.roomType} onChange={handleChange} required>
-          <option value="">-- Select Room Type --</option>
-          <option value="Standard">Standard</option>
-          <option value="Deluxe">Deluxe</option>
-          <option value="Suite">Suite</option>
-        </select>
+    <Container className="booking-container">
+      <h2 className="text-center mb-4">Book a Room</h2>
 
-        <label htmlFor="startDate">Start Date:</label>
-        <input
-          type="date"
-          name="startDate"
-          value={booking.startDate}
-          onChange={handleChange}
-          required
-        />
+      {/* Tabs for Check-In and Check-Out */}
+      <Tabs defaultActiveKey="checkin" id="booking-tabs" className="mb-4">
+        <Tab eventKey="checkin" title="Check In">
+          <Row className="justify-content-center">
+            <Col xs={12} sm={6}>
+              <label htmlFor="check-in-date" className="form-label">
+                Select Check-In Date:
+              </label>
+              <DatePicker
+                id="check-in-date"
+                selected={checkInDate}
+                onChange={(date) => setCheckInDate(date)}
+                minDate={new Date()}
+                dateFormat="yyyy-MM-dd"
+                className="form-control"
+                placeholderText="Choose a date"
+              />
+            </Col>
+          </Row>
+        </Tab>
 
-        <label htmlFor="endDate">End Date:</label>
-        <input
-          type="date"
-          name="endDate"
-          value={booking.endDate}
-          onChange={handleChange}
-          required
-        />
+        <Tab eventKey="checkout" title="Check Out">
+          <Row className="justify-content-center">
+            <Col xs={12} sm={6}>
+              <label htmlFor="check-out-date" className="form-label">
+                Select Check-Out Date:
+              </label>
+              <DatePicker
+                id="check-out-date"
+                selected={checkOutDate}
+                onChange={(date) => setCheckOutDate(date)}
+                minDate={checkInDate ? new Date(checkInDate.getTime() + 86400000) : new Date()}
+                dateFormat="yyyy-MM-dd"
+                className="form-control"
+                placeholderText="Choose a date"
+              />
+            </Col>
+          </Row>
+        </Tab>
+      </Tabs>
 
-        <button type="submit" className="btn-submit">Book Now</button>
-      </form>
-    </div>
+      {/* Room Cards */}
+      <div className="room-cards">
+        {rooms.map((room) => (
+          <div key={room.id} className="room-card">
+            <img src={room.image} alt={room.name} className="room-image" />
+            <div className="room-info">
+              <h3>{room.name}</h3>
+              <p>{room.description}</p>
+              <p>₱{room.price.toLocaleString()} per night</p>
+              <button
+                className="book-now-button"
+                onClick={() => handleBookNow(room)}
+              >
+                Book Now
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
   );
 };
 

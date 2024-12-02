@@ -1,11 +1,12 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-export const BookingContext = createContext();
+const BookingContext = createContext();
 
 export const BookingProvider = ({ children }) => {
   const [bookings, setBookings] = useState([]);
 
   const addBooking = (newBooking) => {
+    console.log('Adding booking:', newBooking); // Debug log
     setBookings((prevBookings) => [...prevBookings, newBooking]);
   };
 
@@ -14,4 +15,8 @@ export const BookingProvider = ({ children }) => {
       {children}
     </BookingContext.Provider>
   );
+};
+
+export const useBooking = () => {
+  return useContext(BookingContext);
 };
