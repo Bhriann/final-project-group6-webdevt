@@ -1,26 +1,36 @@
-import React, { useContext } from 'react';
-import { BookingContext } from '../context/BookingContext';
+import React from 'react';
+import { useBooking } from '../context/BookingContext';
 import '../style/AvailableBookings.css';
 
 const AvailableBookings = () => {
-  const { bookings } = useContext(BookingContext);
+  const { bookings } = useBooking();
+
+  console.log('Current bookings in AvailableBookings:', bookings); // Debug log
 
   return (
-    <div className="available-bookings-page">
+    <div className="available-bookings">
       <h2>Available Bookings</h2>
-      <div className="booking-list">
-        {bookings.length > 0 ? (
-          bookings.map((booking, index) => (
-            <div key={index} className="booking-card">
-              <h3>Room Type: {booking.roomType}</h3>
-              <p>Start Date: {booking.startDate}</p>
-              <p>End Date: {booking.endDate}</p>
-            </div>
-          ))
-        ) : (
-          <p>No bookings available yet.</p>
-        )}
-      </div>
+      {bookings.length === 0 ? (
+        <p>No bookings available.</p>
+      ) : (
+        <ul className="booking-list">
+          {bookings.map((booking, index) => (
+            <li key={index} className="booking-item">
+              <h3>{booking.room.name}</h3>
+              <p>
+                <strong>Stay:</strong> {booking.numOfNights} night(s)
+              </p>
+              <p>
+                <strong>Dates:</strong> {new Date(booking.checkInDate).toDateString()} -{' '}
+                {new Date(booking.checkOutDate).toDateString()}
+              </p>
+              <p>
+                <strong>Total Price:</strong> ₱{booking.totalPrice.toLocaleString()}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
