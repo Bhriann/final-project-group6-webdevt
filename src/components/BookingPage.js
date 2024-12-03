@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Tabs, Tab, Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import '../style/BookingPage.css';
 
 const BookingPage = () => {
@@ -26,18 +26,45 @@ const BookingPage = () => {
       price: 25999, // Price per night
       image: '/path-to-image-2.jpg',
     },
-    // Add more room details as needed
+    {
+    id: 3,
+    name: 'Sigma suite',
+    description: '1000 King bed • Sleeps 4 • 120 to 150 sq m',
+    price: 3813381083109, // Price per night
+    image: '/path-to-image-2.jpg',
+   },
   ];
+
+  const handleCheckInChange = (date) => {
+    if (checkOutDate && date >= checkOutDate) {
+      alert('Check-In date must be earlier than the Check-Out date.');
+      return;
+    }
+    setCheckInDate(date);
+  };
+
+  const handleCheckOutChange = (date) => {
+    if (checkInDate && date <= checkInDate) {
+      alert('Check-Out date must be later than the Check-In date.');
+      return;
+    }
+    setCheckOutDate(date);
+  };
 
   const handleBookNow = (room) => {
     if (!checkInDate || !checkOutDate) {
-      alert('Please select check-in and check-out dates.');
+      alert('Please select both Check-In and Check-Out dates.');
       return;
     }
 
     const numOfNights = Math.ceil(
       (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24)
     );
+
+    if (numOfNights <= 0) {
+      alert('Check-In and Check-Out dates cannot be the same.');
+      return;
+    }
 
     const totalPrice = room.price * numOfNights;
 
@@ -56,48 +83,39 @@ const BookingPage = () => {
     <Container className="booking-container">
       <h2 className="text-center mb-4">Book a Room</h2>
 
-      {/* Tabs for Check-In and Check-Out */}
-      <Tabs defaultActiveKey="checkin" id="booking-tabs" className="mb-4">
-        <Tab eventKey="checkin" title="Check In">
-          <Row className="justify-content-center">
-            <Col xs={12} sm={6}>
-              <label htmlFor="check-in-date" className="form-label">
-                Select Check-In Date:
-              </label>
-              <DatePicker
-                id="check-in-date"
-                selected={checkInDate}
-                onChange={(date) => setCheckInDate(date)}
-                minDate={new Date()}
-                dateFormat="yyyy-MM-dd"
-                className="form-control"
-                placeholderText="Choose a date"
-              />
-            </Col>
-          </Row>
-        </Tab>
+      {/* row containing check-in and checkout*/}
+      <Row className="date-picker-row justify-content-center mb-4">
+        <Col xs={12} sm={6} md={5}>
+          <label htmlFor="check-in-date" className="form-label">
+            Check-In Date:
+          </label>
+          <DatePicker
+            id="check-in-date"
+            selected={checkInDate}
+            onChange={handleCheckInChange}
+            minDate={new Date()}
+            dateFormat="yyyy-MM-dd"
+            className="form-control"
+            placeholderText="Select Check-In Date"
+          />
+        </Col>
+        <Col xs={12} sm={6} md={5}>
+          <label htmlFor="check-out-date" className="form-label">
+            Check-Out Date:
+          </label>
+          <DatePicker
+            id="check-out-date"
+            selected={checkOutDate}
+            onChange={handleCheckOutChange}
+            minDate={checkInDate ? new Date(checkInDate.getTime() + 86400000) : new Date()}
+            dateFormat="yyyy-MM-dd"
+            className="form-control"
+            placeholderText="Select Check-Out Date"
+          />
+        </Col>
+      </Row>
 
-        <Tab eventKey="checkout" title="Check Out">
-          <Row className="justify-content-center">
-            <Col xs={12} sm={6}>
-              <label htmlFor="check-out-date" className="form-label">
-                Select Check-Out Date:
-              </label>
-              <DatePicker
-                id="check-out-date"
-                selected={checkOutDate}
-                onChange={(date) => setCheckOutDate(date)}
-                minDate={checkInDate ? new Date(checkInDate.getTime() + 86400000) : new Date()}
-                dateFormat="yyyy-MM-dd"
-                className="form-control"
-                placeholderText="Choose a date"
-              />
-            </Col>
-          </Row>
-        </Tab>
-      </Tabs>
-
-      {/* Room Cards */}
+      {/* room cards */}
       <div className="room-cards">
         {rooms.map((room) => (
           <div key={room.id} className="room-card">
