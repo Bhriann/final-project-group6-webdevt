@@ -1,0 +1,60 @@
+
+  @media (max-width: 768px) {
+    .banner {
+      height: 250px;
+    }
+  
+    .banner-text {
+      font-size: 2rem;
+    }
+  
+    .container {
+      padding: 10px;
+    }
+  }
+  
+  .nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  /* Banner */
+  .banner {
+    height: 50vh;
+    background-image: url(https://via.placeholder.com/1500x500); /*replace with img url*/
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .banner-text {
+    color: white;
+    font-size: 3rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  }
+  
+  /* description  */
+  .container {
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  h2 {
+    margin: 0;
+  }
+  
+  p {
+    line-height: 1.6;
+    color: #555;
+  }

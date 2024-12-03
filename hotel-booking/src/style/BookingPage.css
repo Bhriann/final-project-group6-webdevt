@@ -1,0 +1,36 @@
+.booking-page {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .booking-form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  select,
+  input,
+  button {
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  .btn-submit {
+    background-color: #343a40;
+    color: #fff;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .btn-submit:hover {
+    background-color: #495057;
+  }
