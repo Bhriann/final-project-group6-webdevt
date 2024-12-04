@@ -15,6 +15,7 @@ const CustomNavbar = () => {
             <Nav.Link as={Link} to="/book">Book a Room</Nav.Link>
             <Nav.Link as={Link} to="/available-bookings">Available Bookings</Nav.Link>
             <Nav.Link href="#contact">Contact</Nav.Link>
+            <Nav.Link as={Link} to="/login">Login</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
