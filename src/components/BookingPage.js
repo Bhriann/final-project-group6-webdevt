@@ -33,6 +33,8 @@ const BookingPage = () => {
     price: 3813381083109, // Price per night
     image: '/path-to-image-2.jpg',
    },
+
+   //copypaste to add more rooms
   ];
 
   const handleCheckInChange = (date) => {

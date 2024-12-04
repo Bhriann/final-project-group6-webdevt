@@ -12,7 +12,6 @@ const CustomNavbar = () => {
         <Navbar.Collapse id="navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/rooms">Rooms</Nav.Link>
             <Nav.Link as={Link} to="/book">Book a Room</Nav.Link>
             <Nav.Link as={Link} to="/available-bookings">Available Bookings</Nav.Link>
             <Nav.Link href="#contact">Contact</Nav.Link>
