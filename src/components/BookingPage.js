@@ -16,21 +16,21 @@ const BookingPage = () => {
       id: 1,
       name: 'Grand Deluxe King',
       description: '1 King bed • Sleeps 3 • 75 to 95 sq m',
-      price: 14488, // Price per night
+      price: 14488, 
       image: '/path-to-image-1.jpg',
     },
     {
       id: 2,
       name: 'Premier Suite',
       description: '1 King bed • Sleeps 4 • 120 to 150 sq m',
-      price: 25999, // Price per night
+      price: 25999, 
       image: '/path-to-image-2.jpg',
     },
     {
     id: 3,
     name: 'Sigma suite',
     description: '1000 King bed • Sleeps 4 • 120 to 150 sq m',
-    price: 3813381083109, // Price per night
+    price: 3813381083109, 
     image: '/path-to-image-2.jpg',
    },
 

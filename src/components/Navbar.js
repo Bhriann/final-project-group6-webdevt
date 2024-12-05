@@ -13,6 +13,7 @@ const CustomNavbar = () => {
           <Nav className="ms-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/book">Book a Room</Nav.Link>
+            <Nav.Link as={Link} to="/edit-bookings-page">Edit bookings</Nav.Link>
             <Nav.Link as={Link} to="/available-bookings">Available Bookings</Nav.Link>
             <Nav.Link href="#contact">Contact</Nav.Link>
             <Nav.Link as={Link} to="/login">Login</Nav.Link>

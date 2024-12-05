@@ -27,6 +27,9 @@ const AvailableBookings = () => {
               <p>
                 <strong>Total Price:</strong> ₱{booking.totalPrice.toLocaleString()}
               </p>
+              <p><strong>Customer name: </strong>{booking.customerName}</p>
+              <p><strong>Payment method: </strong>{booking.paymentMethod}</p>
+              <p><strong>Booking ID:</strong> {booking.bookingID}</p>
             </li>
           ))}
         </ul>

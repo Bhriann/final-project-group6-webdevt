@@ -8,6 +8,7 @@ import AvailableBookings from './components/AvailableBookings';
 import PaymentPage from './components/PaymentPage'; 
 import Login from './components/LoginPage';
 import Register from './components/Register';
+import EditBookingsPage from './components/EditBookingsPage';
 
 const App = () => {
   return (
@@ -16,9 +17,10 @@ const App = () => {
         <CustomNavbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/edit-bookings-page" element={<EditBookingsPage />} />
           <Route path="/book" element={<BookingPage />} />
           <Route path="/available-bookings" element={<AvailableBookings />} />
-          <Route path="/payment" element={<PaymentPage />} /> {/* New Payment Page */}
+          <Route path="/payment" element={<PaymentPage />} /> 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
