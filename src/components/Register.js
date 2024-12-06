@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const Register = ({ addAccount }) => {
   const [name, setName] = useState('');
@@ -6,23 +8,20 @@ const Register = ({ addAccount }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmationMessage, setConfirmationMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  
+   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Check if passwords match
     if (password !== confirmPassword) {
-      setConfirmationMessage("Passwords do not match. Please try again.");
+      setErrorMessage('Passwords do not match.');
       return;
     }
-
-    // Add the new account
-    addAccount({ name, email, password });
-    setConfirmationMessage('Account has been successfully registered!');
-    setName('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
+    const newAccount = { name, email, password, role: 'customer' };
+    console.log("Adding account:", newAccount); // Debug log
+    addAccount(newAccount);
+    navigate('/login');
   };
 
   return (
@@ -59,7 +58,8 @@ const Register = ({ addAccount }) => {
         />
         <button type="submit">Register</button>
       </form>
-      {confirmationMessage && <p>{confirmationMessage}</p>}
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {confirmationMessage && <p style={{ color: 'green' }}>{confirmationMessage}</p>}
     </div>
   );
 };

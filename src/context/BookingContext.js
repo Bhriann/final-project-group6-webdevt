@@ -4,33 +4,43 @@ const BookingContext = createContext();
 
 export const BookingProvider = ({ children }) => {
   const [bookings, setBookings] = useState([]);
+  const [checkedinList, setCheckedinList] = useState([]); // New state for checked-in bookings
 
   // Function for new booking
   const addBooking = (newBooking) => {
-    console.log('Adding booking:', newBooking);
     setBookings((prevBookings) => [...prevBookings, newBooking]);
   };
 
-  // Update booking by ID function
-  const updateBooking = (updatedBooking) => {
-    setBookings((prevBookings) =>
-      prevBookings.map((booking) =>
-        booking.bookingID === updatedBooking.bookingID ? updatedBooking : booking
-      )
-    );
-    console.log('Updated booking:', updatedBooking); // debug
+  // Function to add booking to checked-in list
+  const addCheckedinBooking = (booking) => {
+    setCheckedinList((prevCheckedinList) => [...prevCheckedinList, booking]);
   };
 
-  // Delete booking by ID function
+  // Function to remove booking from checked-in list
+  const removeCheckedinBooking = (bookingID) => {
+    setCheckedinList((prevCheckedinList) =>
+      prevCheckedinList.filter((booking) => booking.bookingID !== bookingID)
+    );
+  };
+
+  // Function to delete booking by ID from bookings list
   const deleteBooking = (bookingID) => {
     setBookings((prevBookings) =>
       prevBookings.filter((booking) => booking.bookingID !== bookingID)
     );
-    console.log('Deleted booking with ID:', bookingID); // debug
   };
 
   return (
-    <BookingContext.Provider value={{ bookings, addBooking, updateBooking, deleteBooking }}>
+    <BookingContext.Provider
+      value={{
+        bookings,
+        checkedinList,
+        addBooking,
+        addCheckedinBooking,
+        removeCheckedinBooking,
+        deleteBooking,
+      }}
+    >
       {children}
     </BookingContext.Provider>
   );
