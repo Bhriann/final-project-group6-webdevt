@@ -15,14 +15,14 @@ const BookingPage = ({ loggedInUser }) => {
     {
       id: 1,
       name: 'Grand Deluxe King',
-      description: '1 King bed • Sleeps 3 • 75 to 95 sq m',
+      description: '1 King bed • Sleeps 2 • 75 to 95 sq m',
       price: 520,
       image: 'images/cityroom.jpeg',
     },
     {
       id: 2,
       name: 'Premier Suite',
-      description: '1 King bed • Sleeps 4 • 120 to 150 sq m',
+      description: '1 King bed • Sleeps 3 • 120 to 150 sq m',
       price: 700,
       image: 'images/bigroom.jpg',
     },
