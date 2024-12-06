@@ -18,8 +18,8 @@ const HomePage = () => {
       <div className="container">
         <h2>Welcome to SuiteSpot</h2>
         <p>
-          Experience luxury and comfort at our hotel. We offer a variety of rooms and top-notch
-          services to make your stay unforgettable. Book with us today and enjoy a seamless experience!
+          Experience luxury and comfort at SuiteSpot. We offer a variety of rooms and top-notch
+          services to make your stay unforgettable.
         </p>
       </div>
     </div>
