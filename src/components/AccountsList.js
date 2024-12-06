@@ -8,7 +8,7 @@ const AccountList = ({ accounts }) => {
         <ul>
           {accounts.map((account, index) => (
             <li key={index}>
-              <strong>Name:</strong> {account.name} | <strong>Email:</strong> {account.email}
+              <strong>Name:</strong> {account.name} | <strong>Email:</strong> {account.email} | <strong>Password:</strong> {account.password}
             </li>
           ))}
         </ul>

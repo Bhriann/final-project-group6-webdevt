@@ -1,36 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useBooking } from '../context/BookingContext';
 import '../style/PaymentPage.css';
 
-const PaymentPage = () => {
+const PaymentPage = ({ loggedInUser }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { bookings, addBooking } = useBooking();
 
   const bookingDetails = location.state;
 
-  const [customerName, setCustomerName] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('Credit Card');
+
+  useEffect(() => {
+    // If logged in, set the customerName to the loggedInUser's name
+    if (loggedInUser) {
+      // No need to set customerName manually; loggedInUser.name will be used directly
+    }
+  }, [loggedInUser]);
 
   if (!bookingDetails) {
     return <p>No booking details available.</p>;
   }
 
-  // functtion to generate a new booking id
+  // Function to generate a new booking ID
   const generateBookingID = () => {
     let id;
     do {
-      id = Math.floor(Math.random() * 1000000); // rng 
-    } while (bookings.some((booking) => booking.bookingID === id)); // no same two IDs may be generated
+      id = Math.floor(Math.random() * 1000000); // RNG
+    } while (bookings.some((booking) => booking.bookingID === id)); // No duplicate IDs
     return id;
   };
 
-
-  //payment page validations
+  // Payment page validations
   const handleConfirmPayment = () => {
-    if (!customerName) {
-      alert('Please enter your name.');
+    if (!loggedInUser) {
+      alert('Please log in to confirm your booking.');
       return;
     }
 
@@ -39,7 +44,7 @@ const PaymentPage = () => {
     const fullBookingDetails = {
       ...bookingDetails,
       bookingID,
-      customerName,
+      customerName: loggedInUser.name, // Use the logged-in user's name directly
       paymentMethod,
     };
 
@@ -64,15 +69,12 @@ const PaymentPage = () => {
       </div>
 
       <div className="customer-details">
-        <label>
-          Name:
-          <input
-            type="text"
-            value={customerName}
-            onChange={(e) => setCustomerName(e.target.value)}
-            placeholder="Enter your name"
-          />
-        </label>
+        {/* Display welcome message with the logged-in user's name */}
+        {loggedInUser ? (
+          <p>Welcome, {loggedInUser.name}!</p>
+        ) : (
+          <p>Please log in to confirm your booking.</p>
+        )}
       </div>
 
       <div className="payment-method">

@@ -5,7 +5,7 @@ import HomePage from './components/Homepage';
 import CustomNavbar from './components/Navbar';
 import BookingPage from './components/BookingPage';
 import AvailableBookings from './components/AvailableBookings';
-import PaymentPage from './components/PaymentPage'; 
+import PaymentPage from './components/PaymentPage';
 import Login from './components/LoginPage';
 import Register from './components/Register';
 import EditBookingsPage from './components/EditBookingsPage';
@@ -15,8 +15,7 @@ const App = () => {
   // State to manage registered accounts
   const [accounts, setAccounts] = useState([]);
 
-  // State to track the currently logged-in user
-  const [loggedInUser, setLoggedInUser] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   // Function to add a new account
   const addAccount = (account) => {
@@ -24,16 +23,20 @@ const App = () => {
   };
 
   // Function to handle login
-  const handleLogin = (username) => {
-    const user = accounts.find((account) => account.username === username);
+  const handleLogin = (username, password) => {
+    const user = accounts.find(
+      (account) => account.username === username && account.password === password
+    );
     if (user) {
       setLoggedInUser(user);
+    } else {
+      alert('Invalid username or password');
     }
   };
 
   // Function to handle logout
   const handleLogout = () => {
-    setLoggedInUser(null);
+    setLoggedInUser(null); // Set loggedInUser back to null
   };
 
   return (
@@ -43,23 +46,26 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/edit-bookings-page" element={<EditBookingsPage />} />
-          <Route 
-            path="/book" 
-            element={<BookingPage loggedInUser={accounts} />} 
+          <Route
+            path="/book"
+            element={<BookingPage loggedInUser={loggedInUser} />} // Pass loggedInUser correctly here
           />
           <Route path="/available-bookings" element={<AvailableBookings />} />
-          <Route path="/payment" element={<PaymentPage />} /> 
-          <Route 
-            path="/login" 
-            element={<Login accounts={accounts} onLogin={handleLogin} />} 
+          <Route
+            path="/payment"
+            element={<PaymentPage loggedInUser={loggedInUser} />} // Pass loggedInUser correctly here
           />
-          <Route 
-            path="/register" 
-            element={<Register addAccount={addAccount} />} 
+          <Route
+            path="/login"
+            element={<Login accounts={accounts} onLogin={handleLogin} />}
           />
-          <Route 
-            path="/accountlist" 
-            element={<AccountList accounts={accounts} />} 
+          <Route
+            path="/register"
+            element={<Register addAccount={addAccount} />}
+          />
+          <Route
+            path="/accountlist"
+            element={<AccountList accounts={accounts} />}
           />
         </Routes>
       </Router>
