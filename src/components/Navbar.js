@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import '../style/Navbar.css'
+import '../style/Navbar.css';
 
 const CustomNavbar = () => {
   return (
@@ -13,9 +13,11 @@ const CustomNavbar = () => {
           <Nav className="ms-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/book">Book a Room</Nav.Link>
+            <Nav.Link as={Link} to="/edit-bookings-page">Edit Bookings</Nav.Link>
             <Nav.Link as={Link} to="/available-bookings">Available Bookings</Nav.Link>
             <Nav.Link href="#contact">Contact</Nav.Link>
             <Nav.Link as={Link} to="/login">Login</Nav.Link>
+            <Nav.Link as={Link} to="/accountlist">Account List</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
