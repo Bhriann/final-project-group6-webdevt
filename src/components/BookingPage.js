@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import '../style/BookingPage.css';
 
-const BookingPage = () => {
+const BookingPage = ({ loggedInUser }) => {
   const navigate = useNavigate();
 
   const [checkInDate, setCheckInDate] = useState(null);
@@ -16,25 +16,23 @@ const BookingPage = () => {
       id: 1,
       name: 'Grand Deluxe King',
       description: '1 King bed • Sleeps 3 • 75 to 95 sq m',
-      price: 14488, 
+      price: 14488,
       image: '/path-to-image-1.jpg',
     },
     {
       id: 2,
       name: 'Premier Suite',
       description: '1 King bed • Sleeps 4 • 120 to 150 sq m',
-      price: 25999, 
+      price: 25999,
       image: '/path-to-image-2.jpg',
     },
     {
-    id: 3,
-    name: 'Sigma suite',
-    description: '1000 King bed • Sleeps 4 • 120 to 150 sq m',
-    price: 3813381083109, 
-    image: '/path-to-image-2.jpg',
-   },
-
-   //copypaste to add more rooms
+      id: 3,
+      name: 'Sigma Suite',
+      description: '1 King bed • Sleeps 4 • 120 to 150 sq m',
+      price: 3813381083109,
+      image: '/path-to-image-3.jpg',
+    },
   ];
 
   const handleCheckInChange = (date) => {
@@ -54,6 +52,13 @@ const BookingPage = () => {
   };
 
   const handleBookNow = (room) => {
+    if (!loggedInUser) {
+      console.log("found user: ",loggedInUser );
+      alert('You must be logged in to book a room.');
+      navigate('/login'); // Redirect to login page
+      return;
+    }
+
     if (!checkInDate || !checkOutDate) {
       alert('Please select both Check-In and Check-Out dates.');
       return;
@@ -77,6 +82,7 @@ const BookingPage = () => {
         checkOutDate,
         numOfNights,
         totalPrice,
+        customerName: loggedInUser.name, // Add customer's name
       },
     });
   };
@@ -85,7 +91,7 @@ const BookingPage = () => {
     <Container className="booking-container">
       <h2 className="text-center mb-4">Book a Room</h2>
 
-      {/* row containing check-in and checkout*/}
+      {/* Date picker */}
       <Row className="date-picker-row justify-content-center mb-4">
         <Col xs={12} sm={6} md={5}>
           <label htmlFor="check-in-date" className="form-label">
@@ -117,7 +123,7 @@ const BookingPage = () => {
         </Col>
       </Row>
 
-      {/* room cards */}
+      {/* Room cards */}
       <div className="room-cards">
         {rooms.map((room) => (
           <div key={room.id} className="room-card">
