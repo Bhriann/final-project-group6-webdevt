@@ -5,13 +5,13 @@ const BookingContext = createContext();
 export const BookingProvider = ({ children }) => {
   const [bookings, setBookings] = useState([]);
 
-  // function for new booking
+  // Function for new booking
   const addBooking = (newBooking) => {
-    console.log('Adding booking:', newBooking); 
+    console.log('Adding booking:', newBooking);
     setBookings((prevBookings) => [...prevBookings, newBooking]);
   };
 
-  // update booking by ID function
+  // Update booking by ID function
   const updateBooking = (updatedBooking) => {
     setBookings((prevBookings) =>
       prevBookings.map((booking) =>
@@ -21,8 +21,16 @@ export const BookingProvider = ({ children }) => {
     console.log('Updated booking:', updatedBooking); // debug
   };
 
+  // Delete booking by ID function
+  const deleteBooking = (bookingID) => {
+    setBookings((prevBookings) =>
+      prevBookings.filter((booking) => booking.bookingID !== bookingID)
+    );
+    console.log('Deleted booking with ID:', bookingID); // debug
+  };
+
   return (
-    <BookingContext.Provider value={{ bookings, addBooking, updateBooking }}>
+    <BookingContext.Provider value={{ bookings, addBooking, updateBooking, deleteBooking }}>
       {children}
     </BookingContext.Provider>
   );

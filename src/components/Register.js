@@ -3,14 +3,26 @@ import React, { useState } from 'react';
 const Register = ({ addAccount }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmationMessage, setConfirmationMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addAccount({ name, email });
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      setConfirmationMessage("Passwords do not match. Please try again.");
+      return;
+    }
+
+    // Add the new account
+    addAccount({ name, email, password });
     setConfirmationMessage('Account has been successfully registered!');
     setName('');
     setEmail('');
+    setPassword('');
+    setConfirmPassword('');
   };
 
   return (
@@ -29,6 +41,20 @@ const Register = ({ addAccount }) => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
         <button type="submit">Register</button>

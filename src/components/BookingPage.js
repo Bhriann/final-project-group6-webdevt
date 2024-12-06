@@ -53,7 +53,6 @@ const BookingPage = ({ loggedInUser }) => {
 
   const handleBookNow = (room) => {
     if (!loggedInUser) {
-      console.log("found user: ",loggedInUser );
       alert('You must be logged in to book a room.');
       navigate('/login'); // Redirect to login page
       return;
@@ -82,7 +81,7 @@ const BookingPage = ({ loggedInUser }) => {
         checkOutDate,
         numOfNights,
         totalPrice,
-        customerName: loggedInUser.name, // Add customer's name
+        customerName: loggedInUser.name, // Pass the logged-in user's name
       },
     });
   };
