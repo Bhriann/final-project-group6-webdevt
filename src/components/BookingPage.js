@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import '../style/BookingPage.css';
 
 const BookingPage = ({ loggedInUser }) => {
@@ -16,22 +16,22 @@ const BookingPage = ({ loggedInUser }) => {
       id: 1,
       name: 'Grand Deluxe King',
       description: '1 King bed • Sleeps 3 • 75 to 95 sq m',
-      price: 14488,
-      image: '/path-to-image-1.jpg',
+      price: 520,
+      image: 'images/cityroom.jpeg',
     },
     {
       id: 2,
       name: 'Premier Suite',
       description: '1 King bed • Sleeps 4 • 120 to 150 sq m',
-      price: 25999,
-      image: '/path-to-image-2.jpg',
+      price: 700,
+      image: 'images/bigroom.jpg',
     },
     {
       id: 3,
       name: 'Sigma Suite',
       description: '1 King bed • Sleeps 4 • 120 to 150 sq m',
-      price: 3813381083109,
-      image: '/path-to-image-3.jpg',
+      price: 516774,
+      image: 'images/bigroomcity.jpeg',
     },
   ];
 
@@ -122,25 +122,37 @@ const BookingPage = ({ loggedInUser }) => {
         </Col>
       </Row>
 
-      {/* Room cards */}
-      <div className="room-cards">
-        {rooms.map((room) => (
-          <div key={room.id} className="room-card">
-            <img src={room.image} alt={room.name} className="room-image" />
-            <div className="room-info">
+      {/* Room rows */}
+      {rooms.map((room) => (
+        <Container key={room.id} className="room-row mb-4">
+          <Row className="align-items-center">
+            {/* Room Image */}
+            <Col xs={12} md={4}>
+              <img
+                src={room.image}
+                alt={room.name}
+                className="room-image img-fluid rounded"
+              />
+            </Col>
+            {/* Room Details */}
+            <Col xs={12} md={6}>
               <h3>{room.name}</h3>
               <p>{room.description}</p>
               <p>₱{room.price.toLocaleString()} per night</p>
-              <button
-                className="book-now-button"
+            </Col>
+            {/* Book Now Button */}
+            <Col xs={12} md={2}>
+              <Button
+                variant="primary"
                 onClick={() => handleBookNow(room)}
+                className="book-now-button"
               >
                 Book Now
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+      ))}
     </Container>
   );
 };
