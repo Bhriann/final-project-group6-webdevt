@@ -6,8 +6,13 @@ const HomePage = () => {
   return (
     <div>
       {/* Banner */}
-      <div className="banner">
-      </div>
+      <div
+      className="banner"
+      style={{
+        backgroundImage: `url('/images/banner.jpeg')`,
+      }}
+    >
+    </div>
 
       {/* Description Section */}
       <div className="container">
