@@ -1,34 +1,41 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({ accounts, onLogin }) => {
+const Login = ({ accounts, setLoggedInUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const navigate = useNavigate(); // We'll use this for redirection after login
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Find the account with the matching email and password
     const account = accounts.find((acc) => acc.email === email && acc.password === password);
 
     if (account) {
-      // Successful login, set loggedInUser
-      onLogin(account.username, password); // Call the onLogin function passed from App.js
-      setMessage(`Welcome, ${account.name}!`);
-      navigate('/book'); // Redirect to booking page after login
+      setLoggedInUser({
+        name: account.name,
+        email: account.email,
+        role: account.role,
+      });
+
+      if (account.role === 'customer') {
+        navigate('/');
+      } else if (account.role === 'concierge') {
+        navigate('/booked-reservations');
+      } else if (account.role === 'admin') {
+        navigate('/customer-list');
+      }
     } else {
       setMessage('Invalid email or password. Please try again.');
     }
 
-    // Clear form fields after submitting
     setEmail('');
     setPassword('');
   };
 
   const navigateToRegister = () => {
-    navigate('/register'); // Navigate to the registration page
+    navigate('/register');
   };
 
   return (
@@ -62,3 +69,4 @@ const Login = ({ accounts, onLogin }) => {
 };
 
 export default Login;
+    

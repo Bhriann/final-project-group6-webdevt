@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useBooking } from '../context/BookingContext';
-import '../style/AvailableBookings.css';
+import '../style/MyBookings.css';
 
-const AvailableBookings = () => {
+const MyBookings = () => {
   const { bookings, updateBooking, deleteBooking } = useBooking();
   const [editingBooking, setEditingBooking] = useState(null); // Track the booking being edited
 
-  console.log('Current bookings in AvailableBookings:', bookings); // Debug log
+  console.log('Current bookings in MyBookings:', bookings); // Debug log
 
   // Handle booking update (for example, updating room price or dates)
   const handleUpdateBooking = (booking) => {
@@ -24,8 +24,8 @@ const AvailableBookings = () => {
   };
 
   return (
-    <div className="available-bookings">
-      <h2>Available Bookings</h2>
+    <div className="My-bookings">
+      <h2>My Bookings</h2>
       {bookings.length === 0 ? (
         <p>No bookings available.</p>
       ) : (
@@ -65,4 +65,4 @@ const AvailableBookings = () => {
   );
 };
 
-export default AvailableBookings;
+export default MyBookings;

@@ -51,7 +51,7 @@ const PaymentPage = ({ loggedInUser }) => {
     addBooking(fullBookingDetails);
 
     alert(`Booking Confirmed! Your Booking ID is: ${bookingID}`);
-    navigate('/available-bookings');
+    navigate('/My-Bookings');
   };
 
   return (
@@ -71,7 +71,7 @@ const PaymentPage = ({ loggedInUser }) => {
       <div className="customer-details">
         {/* Display welcome message with the logged-in user's name */}
         {loggedInUser ? (
-          <p>Welcome, {loggedInUser.name}!</p>
+          <p>Name: {loggedInUser.name}</p>
         ) : (
           <p>Please log in to confirm your booking.</p>
         )}
